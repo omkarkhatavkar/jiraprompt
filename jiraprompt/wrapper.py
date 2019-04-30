@@ -397,6 +397,16 @@ class JiraWrapper(object):
             search_query += ' AND (summary ~ "{}" OR description ~ "{}")'.format(text, text)
         return self.jira.search_issues(search_query)
 
+    def search_task_by_summary(self, text=None):
+        search_query = (
+            "project = {} "
+                .format(self.project_id))
+        if text is not None:
+            search_query += ' AND ( summary ~ "{}")'.format(text)
+        else:
+            search_query += ''
+        return self.jira.search_issues(search_query)
+
     def get_my_issues(self):
         return self.search_issues()
 
